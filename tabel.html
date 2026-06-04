@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Tamu - Grand Horizon Hotel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">Grand Horizon</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="galeri.html">Galeri</a></li>
+                <li><a href="form.html">Formulir</a></li>
+                <li><a href="tabel.html">Tabel Data</a></li>
+            </ul>
+            <div class="hamburger" onclick="toggleMenu()"></div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>Data Reservasi Masuk</h2>
+        <p>Berikut adalah daftar tamu yang telah melakukan pemesanan (Real-time).</p>
+        
+        <div class="table-container">
+            <table id="tabelTamu">
+                <thead>
+                    <tr>
+                        <th>Nama Tamu</th>
+                        <th>Tipe Kamar</th>
+                        <th>Check-in</th>
+                        <th>Durasi</th>
+                        <th>Status</th>
+                        <th>Kontak</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </div>
+        
+        <br>
+        <button onclick="resetData()" style="background:#c0392b; color:white; border:none; padding:8px 15px; cursor:pointer; border-radius:4px;">Reset Semua Data</button>
+    </div>
+
+    <script>
+        // Data Dummy (Untuk mengisi tabel jika kosong pertama kali)
+        const dataDummy = [
+            { nama: "Ujang", email: "ujang@mail.com", kamar: "Deluxe", checkin: "2025-11-20", durasi: "2", status: "Confirmed", phone: "08123456789" },
+            { nama: "Aceng", email: "Aceng@mail.com", kamar: "Standard", checkin: "2025-11-21", durasi: "1", status: "Pending", phone: "08567891234" },
+            { nama: "John", email: "john@mail.com", kamar: "Suite", checkin: "2025-11-22", durasi: "3", status: "Confirmed", phone: "08199988877" },
+            { nama: "Iyus", email: "iyus@mail.com", kamar: "Deluxe", checkin: "2025-11-23", durasi: "2", status: "Confirmed", phone: "08122233344" },
+            { nama: "Mikael", email: "kael@mail.com", kamar: "Standard", checkin: "2025-11-24", durasi: "1", status: "Cancelled", phone: "08771231231" }
+        ];
+
+        // Cek LocalStorage, jika kosong isi dengan dataDummy
+        if (!localStorage.getItem('reservasiHotel')) {
+            localStorage.setItem('reservasiHotel', JSON.stringify(dataDummy));
+        }
+
+        let daftarReservasi = JSON.parse(localStorage.getItem('reservasiHotel'));
+        let tbody = document.querySelector('#tabelTamu tbody');
+
+        // Render Data ke Tabel
+        function renderTable() {
+            tbody.innerHTML = ''; // Kosongkan tabel dulu
+            
+            daftarReservasi.forEach(function(tamu, index) {
+                // Tentukan warna badge berdasarkan status
+                let badgeClass = 'bg-green';
+                if(tamu.status === 'Pending') badgeClass = 'bg-orange';
+                if(tamu.status === 'Cancelled') badgeClass = 'bg-red';
+
+                let row = `<tr>
+                    <td>
+                        <strong>${tamu.nama}</strong><br>
+                        <small style="color:#666">${tamu.email}</small>
+                    </td>
+                    <td>${tamu.kamar}</td>
+                    <td>${tamu.checkin || '-'}</td>
+                    <td>${tamu.durasi || '1'} Malam</td>
+                    <td><span class="badge ${badgeClass}">${tamu.status}</span></td>
+                    <td>${tamu.phone}</td>
+                    <td>
+                        <button class="btn-delete" onclick="hapusSatu(${index})">Hapus</button>
+                    </td>
+                </tr>`;
+                tbody.innerHTML += row;
+            });
+        }
+
+        renderTable(); // Jalankan fungsi
+
+        // Fungsi Hapus Satu Data
+        function hapusSatu(index) {
+            if(confirm("Hapus data tamu ini?")) {
+                daftarReservasi.splice(index, 1);
+                localStorage.setItem('reservasiHotel', JSON.stringify(daftarReservasi));
+                renderTable(); // Render ulang tanpa reload halaman
+            }
+        }
+
+        // Fungsi Reset Semua Data
+        function resetData() {
+            if(confirm("Apakah Anda yakin ingin mereset ke data awal?")) {
+                localStorage.removeItem('reservasiHotel');
+                location.reload();
+            }
+        }
+    </script>
+
+</body>
+</html>

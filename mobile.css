@@ -1,0 +1,156 @@
+:root {
+  --nav-bg: #124405;
+  --accent: #000000;
+  --muted: #0553f0;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #fff;
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--nav-bg);
+  color: #30c902;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  box-shadow: var(--shadow);
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 16px;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+nav ul {
+  display: flex;
+  gap: 14px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  transition: 0.3s ease;
+}
+
+nav a:hover {
+  color: #ff8f55;
+  transform: translateY(-2px);
+}
+
+.btn-follow {
+  background: var(--accent);
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+.btn-follow:hover {
+  background: #f9f9f9;
+  box-shadow: 0 4px 10px rgba(255, 138, 82, 0.4);
+  transform: translateY(-2px);
+}
+
+.hero {
+  text-align: center;
+  padding: 20px;
+}
+
+.hero img {
+  width: 120px;
+  height: 120px;
+  border-radius: 60%;
+}
+
+.hero h1 {
+  font-size: 22px;
+}
+
+.hero .accent {
+  color: var(--accent);
+}
+
+.cta {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 8px 14px;
+  background: #00851d;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.cta:hover {
+  background: #ffff;
+  box-shadow: 0 4px 10px rgba(255, 138, 82, 0.4);
+  transform: translateY(-2px);
+}
+
+section {
+  text-align: center;
+  padding: 10px 14px;
+}
+
+.card {
+  background: #35393d;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 10px auto;
+  padding: 10px;
+  width: 90%;
+  border-radius: 8px;
+}
+
+.card:hover {
+  background: var(--accent);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow);
+}
+
+.card img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+}
+
+.card p {
+  color: #fff;
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+@media (max-width: 600px) {
+  header {
+    padding: 8px 12px;
+  }
+
+  .brand {
+    font-size: 14px;
+  }
+
+  nav ul {
+    gap: 10px;
+  }
+
+  nav a {
+    font-size: 12.5px;
+  }
+
+  .btn-follow {
+    padding: 4px 8px;
+    font-size: 12px;
+    border-radius: 8px;
+  }
+}
